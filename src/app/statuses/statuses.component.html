@@ -1,0 +1,43 @@
+<div class="create-status">
+  <form class="clearfix">
+    <div class="form-group">
+      <textarea class="form-control" rows="3" placeholder="Whats happening?" [(ngModel)]="statusText" (ngModelChange)="typingStatus()" name="statusText"></textarea>
+    </div>
+    <div class="pull-right">
+      <span class="countdown">
+        <!-- Show the characters remaining for the status to remain valid -->
+        <span *ngIf="statusText">{{this.status.maxLength - statusText.length}}</span>
+        <span *ngIf="!statusText">{{this.status.maxLength}}</span>
+      </span>
+      <!-- On click of this button, post status -->
+      <button class="btn btn-primary btn-md" [disabled]="canPostStatus != true" (click)="postStatus()">Post</button>
+    </div>
+  </form>
+</div>
+<div class="list-statuses clearfix">
+  <ul>
+    <!-- Loop through the statuses and display them -->
+    <li *ngFor="let status of status.statuses | async">
+      <div class="photo">
+        <img src="https://randomuser.me/api/portraits/men/84.jpg" alt="">
+      </div>
+      <div class="status">
+        <p>{{status.text}}</p>
+        <div class="reaction">
+          <ul class="list-inline pull-left">
+            <!-- On click of any of the reactions, call the react method -->
+            <li><a href="#" class="btn btn-sm btn-default" (click)="react('like', status)">Like</a></li>
+            <li><a href="#" class="btn btn-sm btn-default" (click)="react('dislike', status)">Dislike</a></li>
+            <li><a href="#" class="btn btn-sm btn-default" (click)="react('love', status)">Love</a></li>
+          </ul>
+          <div class="counts pull-right">
+            <!-- Show the reaction counts -->
+            <span class="thumbs reaction" [hidden]="!status.like || status.like <= 0"><span class="count">{{status.like}}</span> Like</span>
+            <span class="thumbs reaction" [hidden]="!status.dislike || status.dislike <= 0"><span class="count">{{status.dislike}}</span> Dislike</span>
+            <span class="heart reaction" [hidden]="!status.love || status.love <= 0"><span class="count">{{status.love}}</span> Love</span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
