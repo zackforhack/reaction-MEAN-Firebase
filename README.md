@@ -1,3 +1,6 @@
+# Live Demo:
+https://reaction-mean-firebase.herokuapp.com/
+
 # Reactions - A Simple Social Media App that built on MEAN stack.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.1.
